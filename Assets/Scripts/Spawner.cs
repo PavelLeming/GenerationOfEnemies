@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private List<SpawnerPoint> _spawnPoints;
     [SerializeField] private Enemy _enemy;
+    [SerializeField] private TargetPoint _targetPoint;
     private int _timeBetweenSpawns = 2;
-    private int _firstSpawnPointIndex = 0;
-    private int _lastSpawnPointIndex = 3;
 
     private void Start()
     {
@@ -17,11 +15,8 @@ public class Spawner : MonoBehaviour
 
     private void Spawn()
     {
-        Debug.Log(_spawnPoints.Count);
-        SpawnerPoint spawnPoint = _spawnPoints[Random.Range(_firstSpawnPointIndex, _lastSpawnPointIndex + 1)];
         Enemy enemy = Instantiate(_enemy);
-        Debug.Log(spawnPoint);
-        enemy.Initialize(spawnPoint.Position, spawnPoint.Rotation);
+        enemy.Initialize(transform.position, _targetPoint);
     }
 
     private IEnumerator CountTimeBetweenSpawns()
